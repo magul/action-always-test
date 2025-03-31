@@ -1,0 +1,26 @@
+name: Test Github Actions always()
+on:
+  workflow_dispatch:
+    inputs:
+      condition:
+        type: boolean
+        default: false
+      failure:
+        type: boolean
+        default: false
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    env:
+      CONDITION: ${{ inputs.condition }}
+      FAILURE: ${{ inputs.failure }}
+    steps:
+    - name: render env
+      run: env
+    - if: ${{ env.FAILURE == 'true' }}
+      name: fail
+      run: "false"
+    - if: ${{ always() && env.CONDITION == 'true' }}
+      name: kind of always
+      run: echo "Kind of always"
