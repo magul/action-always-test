@@ -16,6 +16,8 @@ jobs:
       CONDITION: ${{ inputs.condition }}
       FAILURE: ${{ inputs.failure }}
     steps:
+    - name: test helm plugin install with version
+      run: helm plugin install https://github.com/databus23/helm-diff --version 1a640875a4073c09d77a199e90118c548dc93dcd # v3.10.0
     - name: render env
       run: env
     - if: ${{ env.FAILURE == 'true' }}
